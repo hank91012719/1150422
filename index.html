@@ -1,20 +1,228 @@
 <!DOCTYPE html>
 <html lang="zh-tw">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>介紹範例</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>楊宇彥</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      min-height: 100vh;
+      background: #f4f1ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      color: #1a1a1a;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .top-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: #aaa;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .name-block {
+      border-top: 1.5px solid #1a1a1a;
+      border-bottom: 1px solid #d8d3cb;
+      padding: 26px 0 22px;
+      margin-bottom: 28px;
+    }
+
+    .name-kr {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: #aaa;
+      letter-spacing: 0.2em;
+      margin-bottom: 8px;
+    }
+
+    .name-zh {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .name-en {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: #aaa;
+      letter-spacing: 0.15em;
+    }
+
+    .ig-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      text-decoration: none;
+      color: #8a6f3e;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+
+    .ig-row:hover { color: #6a5028; }
+
+    .ig-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #8a6f3e;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: #d8d3cb;
+      margin-bottom: 1px;
+    }
+
+    .info-cell {
+      background: #f4f1ec;
+      padding: 20px 18px;
+    }
+
+    .info-cell.full {
+      grid-column: 1 / -1;
+    }
+
+    .cell-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-bottom: 8px;
+    }
+
+    .cell-value {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+
+    .cell-value.large {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #1a1a1a;
+    }
+
+    .cell-unit {
+      font-size: 0.68rem;
+      color: #aaa;
+      font-weight: 300;
+      margin-left: 3px;
+    }
+
+    .hobby-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .hobby-tag {
+      font-size: 0.78rem;
+      color: #8a6f3e;
+      border: 1px solid #c9bfaa;
+      padding: 5px 13px;
+      letter-spacing: 0.04em;
+      background: #fff;
+    }
+
+    .footer {
+      margin-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-line {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: #ccc;
+    }
+
+    .footer-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #8a6f3e;
+      opacity: 0.4;
+    }
+  </style>
 </head>
 <body>
-    <h1>歡迎來到我的網站 Greenii</h1>
-    <p>這是一個簡單的HTML介紹範例。</p>
-    <h2>基本元素</h2>
-    <ul>
-        <li>標題 (h1, h2, etc.)</li>
-        <li>段落 (p)</li>
-        <li>列表 (ul, li)</li>
-    </ul>
-    <h2>連結範例</h2>
-    <a href="https://www.example.com">點擊這裡訪問範例網站</a>
+  <div class="card">
+
+    <div class="top-label">
+      <span>PROFILE · 2025</span>
+      <span>TAIWAN</span>
+    </div>
+
+    <div class="name-block">
+      <div class="name-kr">양우옌 · YANG YUYAN</div>
+      <div class="name-zh">楊宇彥</div>
+      <div class="name-en">HANK YANG</div>
+      <a class="ig-row" href="https://www.instagram.com/__54yyy" target="_blank">
+        <div class="ig-dot"></div>
+        IG · @__54yyy
+      </a>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-cell">
+        <div class="cell-label">성별 · 性別</div>
+        <div class="cell-value">男生</div>
+      </div>
+      <div class="info-cell">
+        <div class="cell-label">별자리 · 星座</div>
+        <div class="cell-value">水瓶座 ♒</div>
+      </div>
+      <div class="info-cell">
+        <div class="cell-label">키 · 身高</div>
+        <div class="cell-value large">173<span class="cell-unit">cm</span></div>
+      </div>
+      <div class="info-cell">
+        <div class="cell-label">몸무게 · 體重</div>
+        <div class="cell-value large">65<span class="cell-unit">kg</span></div>
+      </div>
+      <div class="info-cell full">
+        <div class="cell-label">취미 · 興趣</div>
+        <div class="hobby-tags">
+          <span class="hobby-tag">逛街</span>
+          <span class="hobby-tag">跑咖啡廳</span>
+          <span class="hobby-tag">唱歌</span>
+          <span class="hobby-tag">玩遊戲</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span class="footer-line">PERSONAL · CARD</span>
+      <div class="footer-dot"></div>
+      <span class="footer-line">© HANK 2025</span>
+    </div>
+
+  </div>
 </body>
 </html>
