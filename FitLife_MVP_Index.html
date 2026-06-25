@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitLife MVP</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body{font-family:Arial,sans-serif;background:#181818;color:#f5f5f5;margin:0}
+header{padding:16px;background:#252525;text-align:center}
+.container{padding:20px;max-width:1200px;margin:auto}
+.card{background:#252525;padding:15px;border-radius:10px;margin:10px 0}
+input,button,select{padding:8px;margin:4px}
+button{cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+table{width:100%;border-collapse:collapse}
+td,th{border:1px solid #444;padding:6px}
+#app{display:none}
+#tutorial{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center}
+.modal{background:#252525;padding:20px;border-radius:10px;max-width:400px}
+</style>
+</head>
+<body>
+
+<div id="loginPage" class="container">
+<div class="card">
+<h1>FitLife MVP</h1>
+<input id="userName" placeholder="請輸入名稱">
+<button onclick="login()">登入體驗版</button>
+</div>
+</div>
+
+<div id="tutorial">
+<div class="modal">
+<h2 id="stepTitle"></h2>
+<p id="stepText"></p>
+<button onclick="nextStep()">下一步</button>
+</div>
+</div>
+
+<div id="app">
+<header><h1>FitLife 健身管理系統</h1></header>
+<div class="container">
+
+<div class="grid">
+<div class="card"><h3>身體數據</h3>
+<input id="weight" type="number" placeholder="體重">
+<input id="bodyfat" type="number" placeholder="體脂">
+<button onclick="addBody()">新增</button>
+</div>
+
+<div class="card"><h3>飲食紀錄</h3>
+<input id="meal" placeholder="餐別">
+<input id="calories" type="number" placeholder="熱量">
+<button onclick="addFood()">新增</button>
+</div>
+
+<div class="card"><h3>訓練紀錄</h3>
+<input id="workout" placeholder="動作">
+<input id="sets" type="number" placeholder="組數">
+<button onclick="addWorkout()">新增</button>
+</div>
+</div>
+
+<div class="card">
+<h3>體重紀錄 CRUD</h3>
+<table id="bodyTable"></table>
+</div>
+
+<div class="card">
+<h3>飲食紀錄 CRUD</h3>
+<table id="foodTable"></table>
+</div>
+
+<div class="card">
+<h3>訓練紀錄 CRUD</h3>
+<table id="workoutTable"></table>
+</div>
+
+<div class="card">
+<h3>體重趨勢圖</h3>
+<canvas id="chart"></canvas>
+</div>
+
+</div>
+</div>
+
+<script>
+let steps=[
+["Step1","建立個人資料"],
+["Step2","新增體重紀錄"],
+["Step3","新增飲食紀錄"],
+["Step4","新增訓練紀錄"],
+["Step5","查看分析圖表"]
+];
+let step=0;
+
+function login(){
+ document.getElementById('loginPage').style.display='none';
+ document.getElementById('app').style.display='block';
+ if(!localStorage.getItem('tutorialDone')){
+   document.getElementById('tutorial').style.display='flex';
+   showStep();
+ }
+ render();
+}
+
+function showStep(){
+ document.getElementById('stepTitle').innerText=steps[step][0];
+ document.getElementById('stepText').innerText=steps[step][1];
+}
+
+function nextStep(){
+ step++;
+ if(step>=steps.length){
+   document.getElementById('tutorial').style.display='none';
+   localStorage.setItem('tutorialDone','1');
+ }else showStep();
+}
+
+function getData(k){return JSON.parse(localStorage.getItem(k)||'[]')}
+function setData(k,v){localStorage.setItem(k,JSON.stringify(v))}
+
+function addBody(){
+ let arr=getData('body');
+ arr.push({weight:weight.value,bodyfat:bodyfat.value});
+ setData('body',arr); render();
+}
+
+function addFood(){
+ let arr=getData('food');
+ arr.push({meal:meal.value,calories:calories.value});
+ setData('food',arr); render();
+}
+
+function addWorkout(){
+ let arr=getData('workout');
+ arr.push({workout:workout.value,sets:sets.value});
+ setData('workout',arr); render();
+}
+
+function del(key,i){
+ let arr=getData(key);
+ arr.splice(i,1);
+ setData(key,arr);
+ render();
+}
+
+function render(){
+ let body=getData('body');
+ bodyTable.innerHTML='<tr><th>體重</th><th>體脂</th><th>刪除</th></tr>'+
+ body.map((x,i)=>`<tr><td>${x.weight}</td><td>${x.bodyfat}</td><td><button onclick="del('body',${i})">刪除</button></td></tr>`).join('');
+
+ let food=getData('food');
+ foodTable.innerHTML='<tr><th>餐別</th><th>熱量</th><th>刪除</th></tr>'+
+ food.map((x,i)=>`<tr><td>${x.meal}</td><td>${x.calories}</td><td><button onclick="del('food',${i})">刪除</button></td></tr>`).join('');
+
+ let workout=getData('workout');
+ workoutTable.innerHTML='<tr><th>動作</th><th>組數</th><th>刪除</th></tr>'+
+ workout.map((x,i)=>`<tr><td>${x.workout}</td><td>${x.sets}</td><td><button onclick="del('workout',${i})">刪除</button></td></tr>`).join('');
+
+ drawChart(body);
+}
+
+let chart;
+function drawChart(body){
+ let ctx=document.getElementById('chart');
+ if(chart) chart.destroy();
+ chart=new Chart(ctx,{
+ type:'line',
+ data:{
+ labels:body.map((_,i)=>'紀錄'+(i+1)),
+ datasets:[{label:'體重',data:body.map(x=>x.weight)}]
+ }
+ });
+}
+</script>
+</body>
+</html>
